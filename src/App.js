@@ -10,27 +10,35 @@ let fakeServerData = {
     playlists: [
       {
         name: "My favorites",
-        songs: [{name: "Beat it", duration: 1345},
-        {name: "Rose Love", duration: 2341},
-        {name: "Pink Panter", duration: 1332}]
+        songs: [
+          {name: "Beat it", duration: 1345},
+          {name: "Rose Love", duration: 2341},
+          {name: "Pink Panter", duration: 1332}
+        ]
       },
       {
-        name: "My favorites",
-        songs: [{name: "Beat it", duration: 1345},
-        {name: "Rose Love", duration: 2341},
-        {name: "Pink Panter", duration: 1332}]
+        name: "My weekly",
+        songs: [
+          {name: "Beat", duration: 1345},
+          {name: "Rose", duration: 2341},
+          {name: "Pink", duration: 1332}
+        ]
       },
       {
-        name: "My favorites",
-        songs: [{name: "Beat it", duration: 1345},
-        {name: "Rose Love", duration: 2341},
-        {name: "Pink Panter", duration: 1332}]
+        name: "My mountly",
+        songs: [
+          {name: "it it", duration: 1345},
+          {name: " Love", duration: 2341},
+          {name: " Panter", duration: 1332}
+        ]
       },
       {
-        name: "My favorites",
-        songs: [{name: "Beat it", duration: 1345},
-        {name: "Rose Love", duration: 2341},
-        {name: "Pink Panter", duration: 1332}]
+        name: "My best",
+        songs: [
+          {name: "Beat it", duration: 1345},
+          {name: "Rose Love", duration: 2341},
+          {name: "Pink Panter", duration: 1332}
+        ]
       },
     ]
   }
@@ -74,14 +82,15 @@ class Filter extends Component {
 
 class Playlist extends Component {
   render() {
+    let playlist = this.props.playlist;
     return (
       <div style={{ ...defaultStyle, display: "inline-block", width: "25%" }}>
         <img />
-        <h3>Playlist Name</h3>
+        <h3>{playlist.name}</h3>
         <ul>
-          <li>song 1</li>
-          <li>song 2</li>
-          <li>song 3</li>
+          {playlist.songs.map(song=>
+          <li>{song.name}</li>
+          )}
         </ul>
       </div>
     );
@@ -110,10 +119,9 @@ class App extends Component {
             <PlaylistCounter playlists={this.state.serverData.user.playlists} />
             <HoursCounter playlists={this.state.serverData.user.playlists}/>
             <Filter />
-            <Playlist />
-            <Playlist />
-            <Playlist />
-            <Playlist />
+            { this.state.serverData.user.playlists.map(playlist => 
+              <Playlist playlist={playlist}/>
+            )}
           </div> : <h1 style={defaultStyle}>Loading ...</h1>
         }
       </div>
